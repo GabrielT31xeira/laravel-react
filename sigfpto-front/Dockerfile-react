@@ -1,0 +1,22 @@
+# Define a imagem base
+FROM node:16-alpine3.14
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# RUN chown -R node:node node_modules
+
+# Copia os arquivos package.json e package-lock.json para o diretório de trabalho
+COPY package*.json ./
+
+# Instala as dependências do projeto
+RUN npm install --no-bin-links
+
+# Copia todos os arquivos do projeto para o diretório de trabalho
+COPY . .
+
+# Define a porta que o container irá expor
+EXPOSE 3000
+
+# Comando padrão que será executado quando o container for iniciado
+CMD ["npm", "start"]
