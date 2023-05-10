@@ -1,0 +1,67 @@
+version: '3'
+services:
+    # Criação do servidor web
+    nginx:
+        image: nginx:latest
+        container_name: nginxsig
+        ports:
+          - "8083:80"
+        volumes:
+          - ./sigfpto-backend:/var/www/html
+          - ./sigfpto-backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        networks:
+          - sig_net
+
+      # Criação do container Laravel
+    app:
+      volumes:
+          - ./sigfpto-backend:/var/www/html
+      build:
+          context: ./sigfpto-backend
+          dockerfile: Dockerfile-php
+      container_name: appsig
+      environment:
+          - "DB_HOST=dbsig"
+          - "DB_PORT=3306"
+          - "DB_DATABASE=sig_db"
+          - "DB_USERNAME=sig@2023"
+          - "DB_PASSWORD=sig@120"
+      networks:
+          - sig_net
+
+    # Criação do docker para o frontend
+    frontend:
+      build:
+        context: ./sigfpto-frontend
+        dockerfile: Dockerfile-react
+      container_name: sigfpto-frontend
+      restart: always
+      volumes:
+        - ./sigfpto-frontend:/app
+        - /app/node_modules
+      ports:
+        - "3000:3000"
+      networks:
+          - sig_net
+
+    # Criação do banco de dados
+    db_sig:
+        image: mariadb:10.6
+        restart: always
+        ports:
+          - "3312:3306"
+        volumes:
+          - db_data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: sig_db
+            MYSQL_USER: sig@2023
+            MYSQL_PASSWORD: sig@120
+        networks:
+          - sig_net
+
+volumes:
+    db_data:
+
+networks:
+    sig_net:
