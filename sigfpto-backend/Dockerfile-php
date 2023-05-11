@@ -21,10 +21,11 @@ RUN /usr/local/bin/composer install --no-interaction
 # Copia o arquivo .env para dentro do container
 COPY .env.example .env
 
+# Dando permissão a pasta storage
 RUN chmod -R 777 storage
+
 # Gera a chave de aplicação do Laravel
 RUN php artisan key:generate
-
 
 # Expõe a porta do servidor web
 EXPOSE 9000
