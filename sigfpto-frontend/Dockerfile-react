@@ -4,15 +4,10 @@ FROM node:16-alpine3.14
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# RUN chown -R node:node node_modules
-
-# Copia os arquivos package.json e package-lock.json para o diretório de trabalho
-COPY package*.json ./
+COPY . .
 
 # Instala as dependências do projeto
 RUN npm install
-
-COPY . .
 
 # Define a porta que o container irá expor
 EXPOSE 3000

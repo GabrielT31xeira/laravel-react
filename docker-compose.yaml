@@ -31,13 +31,13 @@ services:
 
     # Criação do docker para o frontend
     frontend:
-      user: "${USER_ID}:${GROUP_ID}"
       build:
         context: ./sigfpto-frontend
         dockerfile: Dockerfile-react
+      user: "${USER_ID}:${GROUP_ID}"
       container_name: sigfpto-frontend
       volumes:
-        - "$PWD/sigfpto-frontend:/app:ro"
+        - "$PWD/sigfpto-frontend:/app-react:ro"
       restart: always
       ports:
         - "3000:3000"
