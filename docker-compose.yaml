@@ -39,7 +39,6 @@ services:
         - CHOKIDAR_USEPOLLING=true
       container_name: sigfpto-frontend
       volumes:
-        # - "./sigfpto-frontend:/app-react:ro"
         - "./sigfpto-frontend/src:/app/src"
       restart: always
       ports:
