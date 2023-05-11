@@ -12,5 +12,6 @@ RUN npm install
 # Define a porta que o container irá expor
 EXPOSE 3000
 
+# RUN npm i ts-node nodemon --save-dev
 # Comando padrão que será executado quando o container for iniciado
-CMD ["npm", "start"]
+CMD ["npm", "start", "--disableHostCheck", "true"]
