@@ -7,7 +7,8 @@ services:
       ports:
         - "8083:80"
       volumes:
-        - "./sigfpto-backend/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro"
+        - "./sigfpto-backend/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+        - "sigfpto-backend:/var/www/html"
       networks:
         - sig_net
 
@@ -19,7 +20,8 @@ services:
       container_name: sigfpto-backend
       user: "${USER_ID}:${GROUP_ID}"
       volumes:
-        - "./sigfpto-backend:/app:ro"
+        - "./sigfpto-backend:/var/www/html"
+        - "sigfpto-backend:/var/www/html"
       environment:
         - "DB_HOST=db_sig"
         - "DB_PORT=3306"
@@ -67,6 +69,7 @@ services:
 
 volumes:
     db_data:
+    sigfpto-backend:
 
 networks:
     sig_net:
