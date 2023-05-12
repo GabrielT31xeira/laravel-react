@@ -13,3 +13,5 @@ localhost:8083
 localhost:3000
 
 ```
+
+- OBS.: Para rodar com o nginx em produção lembra de descomentar o container do nginx no arquivo ```docker-compose.yaml```
