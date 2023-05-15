@@ -3,9 +3,14 @@
 docker compose build --no-cache && docker compose up --force-recreate
 
 ```
-## Porta Backend
+## Porta Backend Nginx (Descomentar no docker compose)
 ```
 localhost:8083
+
+```
+## Porta Backend Laravel
+```
+localhost:8000
 
 ```
 ## Porta Frontend
